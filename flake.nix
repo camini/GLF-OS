@@ -42,7 +42,7 @@
                     target = "/nix-cfg";
                   }
                 ];
-                includeSystemBuildDependencies = true; # ISO OFFLINE
+                includeSystemBuildDependencies = false; # ISO OFFLINE
                 storeContents = [ config.system.build.toplevel ];
                 squashfsCompression = "gzip -Xcompression-level 1";
               };
