@@ -19,16 +19,13 @@
 
           modules = [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
-            ./nix-cfg/configuration.nix
+            ./nix-cfg
 
             {
               nixpkgs.overlays = [
                 (self: super: {
                   calamares-nixos-extensions = super.calamares-nixos-extensions.overrideAttrs (oldAttrs: {
-                    patches = oldAttrs.patches or [ ] ++ [
-                      ./patches/welcome.patch
-                      ./patches/nixos.patch
-                    ];
+                    patches = oldAttrs.patches or [ ] ++ [ ./patches/nixos.patch ];
                   });
                 })
               ];
