@@ -1,37 +1,19 @@
-{ hostname, inputs, ... }:
 {
-  time.timeZone = "Europe/Rome";
-  i18n.defaultLocale = "en_US.UTF-8";
+  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  # NE TOUCHEZ A RIEN
+  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  system = { stateVersion = "24.05"; };
+
+  nixpkgs = { config = { allowUnfree = true; }; };
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
 
-  services = {
-    logind = {
-      lidSwitch = "ignore";
-      lidSwitchExternalPower = if hostname == "server" then "ignore" else "suspend-then-hibernate";
-    };
-  };
-
-  system = { stateVersion = "24.05"; };
-
-  nixpkgs = { config = { allowUnfree = true; }; };
-
-  documentation = {
-    enable = true;
-    doc.enable = false;
-    man.enable = false;
-    dev.enable = false;
-    info.enable = false;
-    nixos.enable = true;
-  };
-
   nix = {
     daemonCPUSchedPolicy = "batch";
-    channel.enable = false;
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
     optimise = {
       automatic = true;
@@ -40,7 +22,6 @@
 
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
 
       substituters = [
         "https://cache.nixos.org"

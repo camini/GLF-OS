@@ -1,8 +1,6 @@
-{ username, ... }:
 {
   programs.nh = {
     enable = true;
-    flake = "/home/${username}/Dotfiles";
     clean = {
       enable = true;
       dates = "weekly";

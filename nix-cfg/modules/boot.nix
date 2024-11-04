@@ -1,6 +1,5 @@
-{ pkgs, hostname, inputs, ... }:
+{ pkgs, ... }:
 {
-  imports = if hostname == "laptop" then [ inputs.chaotic.nixosModules.default ] else [ ];
 
   boot = {
     tmp.cleanOnBoot = true;
@@ -9,15 +8,17 @@
       timeout = 3;
       efi.canTouchEfiVariables = true;
 
-      systemd-boot = {
+      grub = {
         enable = true;
+        efiSupport = true;
+        useOSProber = true;
         configurationLimit = 10;
       };
     };
 
-    kernelPackages =
-      if hostname == "laptop" then pkgs.linuxPackages_cachyos #linuxPackages_zen #linuxPackages #linuxPackages_latest #linuxPackages_xanmod_latest
-      else if hostname == "server" then pkgs.linuxPackages
-      else pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
+    # pkgs.linuxPackages 
+    # pkgs.linuxPackages_zen 
+    # pkgs.linuxPackages_xanmod_latest
   };
 }
