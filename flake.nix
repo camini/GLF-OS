@@ -1,5 +1,5 @@
 {
-  inputs = { nixpkgs.url = "nixpkgs/nixos-unstable"; };
+  inputs = { nixpkgs.url = "nixpkgs/nixos-24.05"; };
 
   outputs = { self, nixpkgs, ... } @ inputs:
     let
@@ -19,7 +19,7 @@
 
           modules = [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
-            ./nix-cfg
+            ./nix-cfg/configuration.nix
 
             {
               nixpkgs.overlays = [
@@ -39,9 +39,9 @@
                     target = "/nix-cfg";
                   }
                 ];
-                includeSystemBuildDependencies = false; # ISO OFFLINE
+                includeSystemBuildDependencies = false;
                 storeContents = [ config.system.build.toplevel ];
-                squashfsCompression = "gzip -Xcompression-level 1";
+                squashfsCompression = "zstd -Xcompression-level 19";
               };
             })
           ];
